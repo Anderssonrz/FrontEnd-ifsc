@@ -1,7 +1,7 @@
-/*3. Escreva um algoritmo que receba uma hora (uma vari·vel para hora e outra para minutos), calcule e
+/*3. Escreva um algoritmo que receba uma hora (uma vari√°vel para hora e outra para minutos), calcule e
 mostre:
 - a hora digitada convertida em minutos
-- o total de minutos, ou seja, os minutos digitados mais a convers„o anterior
+- o total de minutos, ou seja, os minutos digitados mais a convers√£o anterior
 - o total dos minutos convertidos em segundos*/
 
 #include<stdio.h>
@@ -10,7 +10,7 @@ mostre:
 
 void main() {
 setlocale(LC_ALL, "Portuguese");
-printf("Utilizando caracteres e acentuaÁ„o da lÌngua portuguesa!\n\n");
+printf("Utilizando caracteres e acentua√ß√£o da l√≠ngua portuguesa!\n\n");
 
 float hora, minuto, segundos;
 
