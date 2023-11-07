@@ -1,1 +1,4 @@
+const valor = prompt('digite o valor')
+const clientes = prompt('Informe quantos clintes')
 
+alert (valor/clientes)
