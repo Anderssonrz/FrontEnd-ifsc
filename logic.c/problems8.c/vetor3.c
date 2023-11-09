@@ -3,7 +3,7 @@ inteiros e gere um segundo vetor cujos índices pares são o dobro do
 vetor original e os ímpares o triplo.*/
 
 #include<stdio.h>
-#define VAL 3
+#define VAL 30
 
 void main ()
 {
