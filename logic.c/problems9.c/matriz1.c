@@ -9,16 +9,18 @@ void main()
 
    for(linha = 0; linha <LIN; linha++) {
       for(coluna = 0; coluna<LIN; coluna++) {
-         printf("digite um valor binário para a matriz[%d][%d]: ",linha,coluna);
+         printf("(digite 0 ou 1:)[%d][%d]: ",linha,coluna);
          scanf("%d",&valores[linha][coluna]);
       }
    }
+   system("cls");
    for(linha = 0; linha <LIN; linha++) {
       for(coluna = 0; coluna<LIN; coluna++) {
-         printf("%d",valores[linha][coluna]);
+         printf("|%d|",valores[linha][coluna]);
       }
       printf("\n");
    }
+
    for(linha = 0; linha <LIN; linha++) {
       cont = 0;
       for(coluna = 0; coluna<LIN; coluna++) {
@@ -26,10 +28,10 @@ void main()
             cont++;
          }
       }
-         if(cont >maisZeros){
-            maisZeros = cont;
-            linhaMaisZeros = linha + 1;
-         }
+      if(cont >maisZeros) {
+         maisZeros = cont;
+         linhaMaisZeros = linha + 1;
+      }
    }
    printf("a linha %d teve %d valores nulos",linhaMaisZeros,maisZeros);
 }
