@@ -1,3 +1,6 @@
+/*Faça um programa que crie e alimente uma matriz 6 x 6, simulando
+um tabuleiro. Receba somente valores 0s e 1s. Procure e aponte qual a linha com
+mais valores nulos (0s).*/
 #include <stdio.h>
 #include <stdlib.h>
 #define LIN 3
