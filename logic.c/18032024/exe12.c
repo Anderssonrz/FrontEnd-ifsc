@@ -3,46 +3,42 @@
 
 int main()
 {
-    int cont = 0, i, qntd = 0;
-    float numeros[MAX];
-    float valor = 0;
-    int qtdImpar = 0, qtdPar = 0;
-    int vetorP[MAX], vetorI[MAX];
+   int cont = 0, i, quant = 0;
+   float valores[MAX];
+   float valor = 0;
+   float valorBusca;
 
-    printf ("Digite um valor: ");
-    scanf ("%f", &valor);
+   printf ("Digite um valor: ");
+   scanf ("%f", &valor);
 
-    while (valor != 0)
-    {
-        numeros[qntd] = valor;
-        qntd++;
+    while (valor != 0){
+       valores[quant] = valor;
+       quant++;
 
         printf ("Digite um valor: ");
         scanf ("%f", &valor);
     }
+
     printf ("\n");
 
-    for (i = 0; i < qntd; i++)
-    {
-        if (numeros[qntd] % 2 != 0)
-        {
+    printf ("Qual valor voce deseja procurar?: ");
+    scanf ("%f", &valorBusca);
 
-            vetorI[qtdImpar] == numeros[qntd];
-            printf ("%d\n", numeros[qtdImpar]);
+    printf ("\n");
+
+    for (i = 0; i < quant; i++){
+        if (valores[i] == valorBusca){
+
+            printf ("* %.2f *\n", valores[i]);
             cont ++;
-
+            break;
         }
-    }
-    for (i = 0; i < qntd; i++)
-    {
-        if (qtdPar[i] % 2 == 0 )
-        {
-            vetorP[qtdPar] == numeros[qntd];
-            printf ("%d\n", numeros[qtdPar]);
-            cont ++;
 
-        }
-    }
 
+    }
+    printf ("\n");
+    printf ("O valor %.2f foi encontrado %d vezes.", valorBusca, cont);
+    printf ("\n");
 }
+
 
