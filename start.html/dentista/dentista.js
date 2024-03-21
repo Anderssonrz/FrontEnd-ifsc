@@ -12,7 +12,7 @@ frm.addEventListener("submit", (e) => {
     let lista = "";
 
     for (let i = 0; i < pacientes.length; i++) {
-        lista += ${i + 1}. ${pacientes[i]}\n;
+        lista += `${ i + 1 }. ${ pacientes[i] } \n`;
     }
     respLista.innerText = lista;
     frm.inPaciente.value = "";
@@ -30,11 +30,11 @@ frm.btUrgencia.addEventListener("click", () => {
     pacientes.unshift(nome);
     let lista = "";
 
-    pacientes.forEach((paciente, i) => (lista += ${i + 1}. ${paciente}\n));
+    pacientes.forEach((paciente, i) => (lista += `${i + 1}.${paciente}\n`));
     respLista.innerText = lista;
     frm.inPaciente.value = "";
     frm.inPaciente.focus();
-})
+});
 
 
 // parte 3
@@ -47,6 +47,6 @@ frm.btAtender.addEventListener("click", () => {
     const atender = pacientes.shift();
     respNome.innerText = atender;
     let lista = "";
-    pacientes.forEach((paciente, i) => (lista += ${i + 1}. ${paciente}\n));
+    pacientes.forEach((paciente, i) => (lista += `${i + 1}.${paciente}\n`));
     respLista.innerText = lista;
 });
