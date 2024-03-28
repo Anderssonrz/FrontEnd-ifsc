@@ -27,35 +27,13 @@ echo "</table>";
 //  2 – Faça impressão de todos os nomes dos estados
 // do Brasil usando parágrafos para cada estado;
 
-$estadosBrasileiros = array(
-    'AC'=>'Acre',
-    'AL'=>'Alagoas',
-    'AP'=>'Amapá',
-    'AM'=>'Amazonas',
-    'BA'=>'Bahia',
-    'CE'=>'Ceará',
-    'DF'=>'Distrito Federal',
-    'ES'=>'Espírito Santo',
-    'GO'=>'Goiás',
-    'MA'=>'Maranhão',
-    'MT'=>'Mato Grosso',
-    'MS'=>'Mato Grosso do Sul',
-    'MG'=>'Minas Gerais',
-    'PA'=>'Pará',
-    'PB'=>'Paraíba',
-    'PR'=>'Paraná',
-    'PE'=>'Pernambuco',
-    'PI'=>'Piauí',
-    'RJ'=>'Rio de Janeiro',
-    'RN'=>'Rio Grande do Norte',
-    'RS'=>'Rio Grande do Sul',
-    'RO'=>'Rondônia',
-    'RR'=>'Roraima',
-    'SC'=>'Santa Catarina',
-    'SP'=>'São Paulo',
-    'SE'=>'Sergipe',
-    'TO'=>'Tocantins'
-    );
+$pr = "PR";
+$rs = "RS";
+$sc = "SC";
+
+echo "<p>$pr</p>";
+echo "<p>$rs</p>";
+echo "<p>$sc</p>";
 ?>
 </body>
 
