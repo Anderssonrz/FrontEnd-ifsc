@@ -1,24 +1,23 @@
 #include <stdio.h>
-#define MAX 20
+#define MAX 15
 
 int main()
 {
-    int num = 0;
-    int vetor[20], i,  quant= 0;
-    float valor = 0;
+    int cont = 0;
+    int num = 1;
+    int vetor[MAX];
+    float i = 0;
 
-    while(quant < 15)
+// contar quantos numeros vai querer aparecer na tela
+    while(cont < MAX)
     {
-        if(num % 3 == 0 )
+//condição para aparecer os multiplos de 4
+        if(num % 4 == 0 )
         {
-            vetor[quant]= num;
-            quant++;
+            printf("%d , ", num);
+            vetor[cont]= num;
+            cont++;
         }
         num++;
-
-    }
-    for (i = 0; i < quant; i++)
-    {
-        printf(" %d ", num);
     }
 }
