@@ -16,10 +16,10 @@ int main()
         printf("[%d] = %d\n", i, vetor[i]);
     }
 
-    for (i = 0; i < quant; i++){
-    vetor[quant - 1] = 0;
+    for (i = 0; i < quant - 1; i++){
+    vetor[i] = vetor[i+1];
     }
-    vetor[quant]--;
+
 
 
     printf ("Valores do vetor sem o primeiro numero: \n");
