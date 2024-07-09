@@ -5,12 +5,12 @@ $user = "root";
 $password = "";
 $database = "lojaonline";
 
-$conexao = mysqli_connect($host, $user, $password, $database);
 
+$conexao = mysqli_connect($host, $user, $password, $database);
 mysqli_set_charset($conexao, "utf8");
 if($conexao){
-    echo "Conexao conectada com sucesso <br>";
-
+    echo "conexão estabeledida <br>";
 }else{
-    die("Erro da conexao" . mysqli_connect_error());
+    die("Erro de conexão: ".mysqli_connect_error());
 }
+?>
