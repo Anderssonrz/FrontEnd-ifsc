@@ -4,9 +4,21 @@ require("conexao.php");
 // Verificar se foi enviado o ID do registro a ser excluído
 if (isset($_GET['excluir']) && !empty($_GET['excluir'])) {
     $id = $_GET['excluir'];
-
-    // Chamar função para excluir a característica com o ID especificado
     apagarCaracteristica($conexao, $id);
+}
+
+// Verificar se foi enviado o ID do registro a ser editado
+if (isset($_GET['editar']) && !empty($_GET['editar'])) {
+    $id = $_GET['editar'];
+    $caracteristica = buscarCaracteristica($conexao, $id);
+}
+
+// Verificar se foi enviado o formulário de edição
+if (isset($_POST['btnEditar'])) {
+    $id = $_POST['id'];
+    $nome = $_POST['nome'];
+    $descricao = $_POST['descricao'];
+    editarCaracteristica($conexao, $id, $nome, $descricao);
 }
 
 // Lógica para pesquisa
@@ -18,8 +30,53 @@ if (isset($_POST['btnPesquisar'])) {
 }
 
 $res = mysqli_query($conexao, $sql);
-?>
 
+require("conexao.php");
+
+// Verificar se foi enviado o ID do registro a ser excluído
+if (isset($_GET['excluir']) && !empty($_GET['excluir'])) {
+    $id = intval($_GET['excluir']);
+    apagarCaracteristica($conexao, $id);
+    // Redirecionar para evitar reenvio de formulário
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+// Outras funções e lógica do código...
+
+function apagarCaracteristica($conexao, $id)
+{
+    $stmt = $conexao->prepare("DELETE FROM caracteristica WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    if ($stmt->execute()) {
+        echo "<div class='alert alert-success'>Registro ID $id apagado com sucesso</div>";
+    } else {
+        echo "<div class='alert alert-danger'>Erro ao tentar excluir o registro com ID $id: " . $stmt->error . "</div>";
+    }
+    $stmt->close();
+}
+
+function editarCaracteristica($conexao, $id, $nome, $descricao)
+{
+    $stmt = $conexao->prepare("UPDATE caracteristica SET nome = ?, descricao = ? WHERE id = ?");
+    $stmt->bind_param("ssi", $nome, $descricao, $id);
+    if ($stmt->execute()) {
+        echo "<div class='alert alert-success'>Registro ID $id atualizado com sucesso</div>";
+    } else {
+        echo "<div class='alert alert-danger'>Erro ao tentar atualizar o registro com ID $id: " . $stmt->error . "</div>";
+    }
+    $stmt->close();
+}
+
+
+
+function buscarCaracteristica($conexao, $id)
+{
+    $sql = "SELECT * FROM caracteristica WHERE id = $id";
+    $res = mysqli_query($conexao, $sql);
+    return mysqli_fetch_assoc($res);
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -39,6 +96,7 @@ $res = mysqli_query($conexao, $sql);
         <input type="text" size="75%" name="txtpesquisa" placeholder="Pesquisar por nome">
         <button type="submit" name="btnPesquisar" class="btn btn-primary">Pesquisar</button>
     </form>
+
     <table border="1" class="table">
         <thead>
             <tr>
@@ -54,31 +112,29 @@ $res = mysqli_query($conexao, $sql);
                 echo "<tr>";
                 echo "<td>" . $linha['nome'] . "</td>";
                 echo "<td>" . $linha['descricao'] . "</td>";
-                echo "<td> <a class='btn btn-warning' href='#'><i class='fa-solid fa-pen-to-square'></i> Editar </a> </td>";
+                echo "<td> <a class='btn btn-warning' href='" . $_SERVER['PHP_SELF'] . "?editar=" . $linha['id'] . "'><i class='fa-solid fa-pen-to-square'></i> Editar </a> </td>";
                 echo "<td> <a class='btn btn-danger' href='" . $_SERVER['PHP_SELF'] . "?excluir=" . $linha['id'] . "'><i class='fa-solid fa-trash'></i> Excluir </a> </td>";
                 echo "</tr>";
             }
-            function apagarCaracteristica($conexao, $id)
-            {
-                $sql = "DELETE FROM caracteristica WHERE id = $id";
-                $res = mysqli_query($conexao, $sql);
-
-                if ($res == TRUE) {
-                    echo "Registro ID apagado com sucesso";
-                } else {
-                    echo "Erro ao tentar excluir o registro com ID $id: " . mysqli_error($conexao);
-                }
-            }
-            function editarCaracteristica($conexao, $idCaracteristica)
-            {
-                $sql= "UPDATE caracteristica SET nome= '???' WHERE id= 'idCaracteristica'";
-            }
-
             ?>
-
-            
         </tbody>
     </table>
+
+    <?php if (isset($caracteristica)) { ?>
+    <h3 style="text-align: center;">Editar Característica</h3>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <input type="hidden" name="id" value="<?php echo $caracteristica['id']; ?>">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $caracteristica['nome']; ?>">
+        </div>
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <input type="text" class="form-control" id="descricao" name="descricao" value="<?php echo $caracteristica['descricao']; ?>">
+        </div>
+        <button type="submit" name="btnEditar" class="btn btn-success">Salvar Alterações</button>
+    </form>
+    <?php } ?>
 
     <a class="btn btn-primary" href="cadastro.php">Cadastro</a>
 
