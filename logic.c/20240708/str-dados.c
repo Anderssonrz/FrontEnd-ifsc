@@ -12,21 +12,21 @@ int mostra_menu()
 {
     int opcao;
     system("cls");
-    printf("--------------------------\n");
+    printf("+------------------------+\n");
     printf("|      Menu Principal    |\n");
-    printf("--------------------------\n");
+    printf("+------------------------+\n");
     printf("|    Incluir Item    | 1 |\n");
-    printf("--------------------------\n");
+    printf("+------------------------+\n");
     printf("|    Listar Itens    | 2 |\n");
-    printf("--------------------------\n");
+    printf("+------------------------+\n");
     printf("|   Pesquisar Itens  | 3 |\n");
-    printf("|------------------------|\n");
+    printf("+------------------------+\n");
     printf("|       Backup       | 4 |\n");
-    printf("|------------------------|\n");
+    printf("+------------------------+\n");
     printf("|     ler arquivo    | 5 |\n");
-    printf("--------------------------\n");
+    printf("+------------------------+\n");
     printf("|        Sair        | 0 |\n");
-    printf("--------------------------\n");
+    printf("+------------------------+\n");
     printf("Tecle a opcao: ");
     scanf("%d", &opcao);
     return opcao;
@@ -130,7 +130,7 @@ int gravar_arquivo(tProd* vProd, int qtd)
 }
 
 
-int ler_arquivo(vProd)
+int ler_arquivo(tProd* vProd )
 {
     //declarar, inclementar a cada registro lido.  mostrar  no final. retornar contador
     int cont = 0;
@@ -149,24 +149,25 @@ int ler_arquivo(vProd)
         while (fgets(linha,256, file))
         {
             printf("%s", linha);
-            printf("Numero de leituras: %d", cont);
+            //printf("Numero de leituras: %d\n", cont);
             //precessar os campos da linha
             //codigo
             token = strtok(linha, ";");
             vProd[cont].codigo = atoi(token);
             //descricao
             token= strtok(NULL, ";");
-            strcopy(vProd[cont].descricao,token);
+            strcpy(vProd[cont].descricao,token);
             //preco
             token = strtok(linha, ";");
             vProd[cont].preco = atof(token);
-        }
         cont++;
+        }
+        printf("registos lidos\n");
     }
     fclose(file);
     system("pause");
-}
 return cont;
+
 }
 
 int main()
@@ -193,7 +194,7 @@ int main()
             gravar_arquivo(vProd, qtd);
             break;
         case 5:
-            ler_arquivo(vProd, qtd);
+            ler_arquivo(vProd);
             break;
         case 0:
             printf("Encerrando...");
