@@ -152,21 +152,21 @@ int ler_arquivo(tProd* vProd )
             //printf("Numero de leituras: %d\n", cont);
             //precessar os campos da linha
             //codigo
-            token = strtok(linha, ";");
+            token = strtok(linha, ";\n");
             vProd[cont].codigo = atoi(token);
             //descricao
-            token= strtok(NULL, ";");
+            token= strtok(NULL, ";\n");
             strcpy(vProd[cont].descricao,token);
             //preco
-            token = strtok(linha, ";");
+            token = strtok(linha, ";\n");
             vProd[cont].preco = atof(token);
-        cont++;
+            cont++;
         }
-        printf("registos lidos\n");
     }
     fclose(file);
+    printf("registos lidos\n");
     system("pause");
-return cont;
+    return cont;
 
 }
 
