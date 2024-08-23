@@ -1,143 +1,109 @@
 <?php
-require("conexao.php");
-
-// Verificar se foi enviado o ID do registro a ser excluído
-if (isset($_GET['excluir']) && !empty($_GET['excluir'])) {
-    $id = $_GET['excluir'];
-    apagarCaracteristica($conexao, $id);
-}
-
-// Verificar se foi enviado o ID do registro a ser editado
-if (isset($_GET['editar']) && !empty($_GET['editar'])) {
-    $id = $_GET['editar'];
-    $caracteristica = buscarCaracteristica($conexao, $id);
-}
-
-// Verificar se foi enviado o formulário de edição
-if (isset($_POST['btnEditar'])) {
-    $id = $_POST['id'];
-    $nome = $_POST['nome'];
-    $descricao = $_POST['descricao'];
-    editarCaracteristica($conexao, $id, $nome, $descricao);
-}
-
-// Lógica para pesquisa
-if (isset($_POST['btnPesquisar'])) {
-    $termoPesquisa = $_POST['txtpesquisa'];
-    $sql = "SELECT * FROM caracteristica WHERE nome LIKE '%$termoPesquisa%'";
-} else {
-    $sql = "SELECT * FROM caracteristica";
-}
-
-$res = mysqli_query($conexao, $sql);
-
-require("conexao.php");
-
-// Verificar se foi enviado o ID do registro a ser excluído
-if (isset($_GET['excluir']) && !empty($_GET['excluir'])) {
-    $id = intval($_GET['excluir']);
-    apagarCaracteristica($conexao, $id);
-    // Redirecionar para evitar reenvio de formulário
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
-}
-
-// Outras funções e lógica do código...
-
-function apagarCaracteristica($conexao, $id)
-{
-    $stmt = $conexao->prepare("DELETE FROM caracteristica WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    if ($stmt->execute()) {
-        echo "<div class='alert alert-success'>Registro ID $id apagado com sucesso</div>";
-    } else {
-        echo "<div class='alert alert-danger'>Erro ao tentar excluir o registro com ID $id: " . $stmt->error . "</div>";
-    }
-    $stmt->close();
-}
-
-function editarCaracteristica($conexao, $id, $nome, $descricao)
-{
-    $stmt = $conexao->prepare("UPDATE caracteristica SET nome = ?, descricao = ? WHERE id = ?");
-    $stmt->bind_param("ssi", $nome, $descricao, $id);
-    if ($stmt->execute()) {
-        echo "<div class='alert alert-success'>Registro ID $id atualizado com sucesso</div>";
-    } else {
-        echo "<div class='alert alert-danger'>Erro ao tentar atualizar o registro com ID $id: " . $stmt->error . "</div>";
-    }
-    $stmt->close();
-}
-
-
-
-function buscarCaracteristica($conexao, $id)
-{
-    $sql = "SELECT * FROM caracteristica WHERE id = $id";
-    $res = mysqli_query($conexao, $sql);
-    return mysqli_fetch_assoc($res);
-}
+include_once("conexao.php");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja Online</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/f882ebf8ff.js" crossorigin="anonymous"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Página Inicial</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
 </head>
 
 <body>
-    <h3 style="text-align: center;">Relação de Característica</h3>
-
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-        <input type="text" size="75%" name="txtpesquisa" placeholder="Pesquisar por nome">
-        <button type="submit" name="btnPesquisar" class="btn btn-primary">Pesquisar</button>
-    </form>
-
-    <table border="1" class="table">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Editar</th>
-                <th>Excluir</th>
-            </tr>
-        </thead>
-        <tbody class="table mb-0">
-            <?php
-            while ($linha = mysqli_fetch_assoc($res)) {
-                echo "<tr>";
-                echo "<td>" . $linha['nome'] . "</td>";
-                echo "<td>" . $linha['descricao'] . "</td>";
-                echo "<td> <a class='btn btn-warning' href='" . $_SERVER['PHP_SELF'] . "?editar=" . $linha['id'] . "'><i class='fa-solid fa-pen-to-square'></i> Editar </a> </td>";
-                echo "<td> <a class='btn btn-danger' href='" . $_SERVER['PHP_SELF'] . "?excluir=" . $linha['id'] . "'><i class='fa-solid fa-trash'></i> Excluir </a> </td>";
-                echo "</tr>";
-            }
-            ?>
-        </tbody>
-    </table>
-
-    <?php if (isset($caracteristica)) { ?>
-    <h3 style="text-align: center;">Editar Característica</h3>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-        <input type="hidden" name="id" value="<?php echo $caracteristica['id']; ?>">
-        <div class="mb-3">
-            <label for="nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $caracteristica['nome']; ?>">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="#!">Loja Online</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"></a>
+                    <li><a class="dropdown-item" href="produto.php">Todos os Produtos</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                </ul>
+                </li>
+                </ul>
+                <form class="d-flex">
+                    <button class="btn btn-outline-dark" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                        Carrinho
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    </button>
+                </form>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="descricao" class="form-label">Descrição</label>
-            <input type="text" class="form-control" id="descricao" name="descricao" value="<?php echo $caracteristica['descricao']; ?>">
+    </nav>
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">loja</h1>
+                <p class="lead fw-normal text-white-50 mb-0">itens da loja</p>
+                
+            </div>
         </div>
-        <button type="submit" name="btnEditar" class="btn btn-success">Salvar Alterações</button>
-    </form>
-    <?php } ?>
+    </header>
 
-    <a class="btn btn-primary" href="cadastro.php">Cadastro</a>
+    <!-- Section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
+
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Sale badge-->
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                            .
+                        </div>
+                        <!-- Product image-->
+                        <img class="card-img-top" src="" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">Itens</h5>
+                                <!-- Product price-->
+                                <span class="text-muted text-decoration-line-through">R$00.00</span>
+                                R$00.00
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white"> &copy; </p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
 </body>
 
 </html>
