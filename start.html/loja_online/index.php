@@ -9,7 +9,7 @@ include_once("conexao.php");
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Página Inicial</title>
+    <title>Loja Online</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -29,16 +29,16 @@ include_once("conexao.php");
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Área Restrita</a></li>
                     <li class="nav-item"><a class="nav-link" href="servicosAdmin">Clientes</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Loja</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#!">Todos os Produtos</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="#!">Eletrônicos</a></li>
-                            <li><a class="dropdown-item" href="#!">Telefonia</a></li>
-                            <li><a class="dropdown-item" href="#!">Informática</a></li>
-                            <li><a class="dropdown-item" href="#!">Acessórios</a></li>
+                            <li><a class="dropdown-item" href="cadCaracteristica.php">Cadastrar Caracteristica</a></li>
+                            <li><a class="dropdown-item" href="editarCaracteristica.php">editar</a></li>
+                            <li><a class="dropdown-item" href="deletarCaracteristica.php">Apagar</a></li>
+                            <li><a class="dropdown-item" href="alteradescricao.php">Alterar descrição</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -93,8 +93,7 @@ include_once("conexao.php");
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to
-                                        cart</a>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Detalhe</a>
                                 </div>
                             </div>
                         </div>
