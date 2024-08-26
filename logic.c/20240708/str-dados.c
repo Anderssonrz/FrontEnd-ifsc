@@ -53,10 +53,8 @@ int ordenar_produto(tProd* vProd, int qtd)
     {
         houve_troca = 0;
         for (i = 0; i < qtd - 1; i++)
-            // se as descrições estão fora de ordem
         {
             if (strcmp(vProd[i].descricao, vProd[i+1].descricao) > 0)
-                // Efetuar as trocas de valor
             {
                 houve_troca = 1;
 
@@ -97,39 +95,55 @@ int inclusao(tProd* vProd, int qtd)
     system("pause");
     return qtd+1;
 }
-
 int editar_produto(tProd* vProd, int qtd)
 {
     int i = 0;
     int posicao = -1;
     int buscar;
 
-    if (file == NULL)
-
     printf("--------------------------\n");
-    printf("Pesquisar produto para edição\n");
+    printf("Qual produto deseja editar\n");
     printf("--------------------------\n");
 
-    printf("Digite o codigo desejado: ");
+    printf("Digite o codigo do produto desejado: ");
     scanf("%d", &buscar);
-    gets(vProd[i].codigo);
 
     for (i = 0; i < qtd; i++)
     {
-
-
-        if (vProd[i].codigo==buscar
+        if (vProd[i].codigo == buscar)
         {
-            if(vProd[i].codigo == bucar){
-                posicao = i;
-                break;
-                printf("");
-            }
-
+            posicao = i;
+            break;
         }
-
     }
+
+    if (posicao == -1)
+    {
+        printf("Produto não encontrado.\n");
+    }
+    else
+    {
+        printf("Produto encontrado:\n");
+        printf("Codigo:... %d\n", vProd[posicao].codigo);
+        printf("Descricao: %s\n", vProd[posicao].descricao);
+        printf("Preco:.... %.2f\n", vProd[posicao].preco);
+
+        printf("Digite os novos dados do produto:\n");
+        printf("Nova descricao: ");
+        fflush(stdin);
+        gets(vProd[posicao].descricao);
+        printf("Novo preco: ");
+        scanf("%f", &vProd[posicao].preco);
+
+        gravar_arquivo(vProd, qtd);
+        printf("Produto alterado com sucesso!\n");
+    }
+
+    system("pause");
+    return 0;
 }
+
+
 
 
 
