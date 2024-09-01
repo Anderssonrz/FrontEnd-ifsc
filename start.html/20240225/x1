@@ -1,6 +1,0 @@
-const numero = Number(prompt('Informe um numero'))
-const anterior = numero-1
-const posterior = numero+1
-
-alert(anterior)
-alert(posterior)
